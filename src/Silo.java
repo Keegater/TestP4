@@ -17,6 +17,22 @@ public class Silo {
 
     public void executeInstruction(String instruction) {
         // Implementation of instruction execution
+        // Parse the instruction and execute accordingly
+        String[] parts = instruction.split(" ");
+        String command = parts[0];
+        switch (command) {
+            case "NOOP":
+                // No operation
+                break;
+            case "MOVE":
+                // Move data between ports
+                int srcPort = Integer.parseInt(parts[1]);
+                int destPort = Integer.parseInt(parts[2]);
+                int value = ports[srcPort].read();
+                ports[destPort].write(value);
+                break;
+            // Add other cases for different instructions
+        }
     }
 
     public int readPort(int portIndex) {
