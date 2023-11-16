@@ -1,14 +1,22 @@
-public class Port {
+public class Port extends Thread {
 
-    private String name;
     private int value;
+    private boolean hasValue;
     private boolean isAvailable;
 
-    public Port(String name) {
-        this.name = name;
+    public Port() {
         this.value = 0;
+        this.hasValue = false;
         this.isAvailable = true;
     }
+
+
+    @Override
+    public void run(){
+        //System.out.println("Port running");
+
+    }
+
 
     public synchronized int read() {
         while (!isAvailable) {
@@ -24,6 +32,7 @@ public class Port {
         return value;
     }
 
+    //synchronized key word prevents any other silos from calling this methood while another is.
     public synchronized void write(int value) {
         while (isAvailable) {
             try {
@@ -38,25 +47,19 @@ public class Port {
         notifyAll();
     }
 
-    // Getters and Setters
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getValue() {
         return value;
+    }
+
+    public boolean hasValue(){
+        return hasValue;
     }
 
     public boolean isAvailable() {
         return isAvailable;
     }
 
-    public void setAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
-    }
 
 }
